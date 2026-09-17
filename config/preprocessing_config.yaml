@@ -1,0 +1,91 @@
+# Preprocessing Configuration
+# Phase 2: OCR, Classification, Quality Assessment
+
+ocr:
+  primary_engine: baidu_unlimited
+  fallback_engine: tesseract
+  
+  baidu:
+    api_key: ${BAIDU_API_KEY}
+    secret_key: ${BAIDU_API_SECRET}
+    # API endpoints
+    general_recognition: "https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic"
+    table_recognition: "https://aip.baidubce.com/rest/2.0/ocr/v1/table_recognition"
+    
+  tesseract:
+    languages: "eng"  # Add 'chi_sim' for Chinese support
+    dpi: 300
+    psm: 3  # Page segmentation mode
+    oem: 3  # OCR engine mode
+
+quality_assessment:
+  # Scoring weights
+  weights:
+    contrast: 0.3
+    blur: 0.3
+    noise: 0.2
+    text_density: 0.2
+  
+  # Grade thresholds
+  grade_thresholds:
+    A: 0.9
+    B: 0.75
+    C: 0.6
+    D: 0.4
+    F: 0.0
+  
+  # Quality flags
+  issues:
+    low_contrast_threshold: 0.5
+    high_blur_threshold: 0.3
+    high_noise_threshold: 0.2
+    low_text_density_threshold: 0.05
+
+classification:
+  # Document types
+  doc_types:
+    - datasheet
+    - manual
+    - certificate
+    - specification
+    - unknown
+  
+  # Component categories
+  component_categories:
+    - antenna
+    - connector
+    - amplifier
+    - filter
+    - oscillator
+    - transceiver
+    - cable
+    - adapter
+    - attenuator
+    - other
+  
+  # ML models (to be trained)
+  models:
+    doc_type_classifier: "models/doc_type_bert"
+    category_classifier: "models/category_bert"
+    manufacturer_ner: "models/manufacturer_ner"
+
+language_detection:
+  supported_languages:
+    - en
+    - zh
+    - ja
+    - ko
+  default_language: en
+
+processing:
+  # Image extraction
+  image_dpi: 300
+  image_format: png
+  
+  # Batch processing
+  batch_size: 10
+  max_workers: 4
+  
+  # Retry settings
+  max_retries: 3
+  retry_delay_seconds: 5
