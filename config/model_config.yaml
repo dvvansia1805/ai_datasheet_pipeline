@@ -1,0 +1,17 @@
+models:
+  version: "0.1.0"
+  
+  document_classifier:
+    base_model: "distilbert-base-uncased"
+    num_classes: 5
+    
+  table_extractor:
+    base_model: "microsoft/table-transformer-structure-recognition"
+    
+  field_extractor:
+    base_model: "bert-base-uncased"
+    entities:
+      - part_number
+      - manufacturer
+      - electrical_characteristics
+      - mechanical_specifications

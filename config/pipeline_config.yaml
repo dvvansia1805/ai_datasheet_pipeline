@@ -1,0 +1,25 @@
+pipeline:
+  version: "0.1.0"
+  name: "gravloc_datasheet_pipeline"
+  
+  ingestion:
+    supported_formats: [pdf, png, jpg, tiff]
+    max_file_size_mb: 50
+    
+  preprocessing:
+    ocr:
+      enabled: true
+      engine: tesseract
+      languages: [eng]
+      dpi: 300
+    
+  extraction:
+    table:
+      confidence_threshold: 0.8
+    field:
+      confidence_threshold: 0.7
+      
+  output:
+    format: json
+    include_confidence: true
+    include_source_attribution: true

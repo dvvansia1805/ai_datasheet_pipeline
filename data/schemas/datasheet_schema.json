@@ -1,0 +1,23 @@
+# Datasheet Schema v0.1.0
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Aerospace Component Datasheet",
+  "type": "object",
+  "required": ["part_number", "manufacturer", "extraction_metadata"],
+  "properties": {
+    "part_number": {"type": "string"},
+    "manufacturer": {"type": "string"},
+    "component_type": {"type": "string"},
+    "technical_specifications": {"type": "object"},
+    "extraction_metadata": {
+      "type": "object",
+      "required": ["extraction_timestamp", "pipeline_version", "confidence_score"],
+      "properties": {
+        "extraction_timestamp": {"type": "string", "format": "date-time"},
+        "pipeline_version": {"type": "string"},
+        "confidence_score": {"type": "number"},
+        "validation_status": {"type": "string"}
+      }
+    }
+  }
+}
